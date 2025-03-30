@@ -1,0 +1,20 @@
+<!-- dashboard/templates/dashboard/search_race_data.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Race Data</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Search Race Data</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Fetch Data</button>
+        </form>
+        <a href="{% url 'dashboard-home' %}" class="btn btn-secondary mt-3">Back to Home</a>
+    </div>
+</body>
+</html>

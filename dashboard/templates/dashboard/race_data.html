@@ -2,18 +2,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Race Data</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <title>Race Data</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1 class="mt-4">Race Data</h1>
-        <div class="mt-3">
-            <!-- Use the 'safe' filter to render HTML from DataFrame -->
-            {{ race_data|safe }}
-        </div>
-        <a href="{% url 'dashboard-home' %}" class="btn btn-secondary mt-3">Back to Home</a>
-    </div>
+  <div class="container">
+    <h1 class="mt-4">Race Data</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Lap Number</th>
+          <th>Driver</th>
+          <th>Lap Time</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in race_data_rows %}
+          <tr>
+            <td>{{ row.LapNumber }}</td>
+            <td>{{ row.Driver }}</td>
+            <td>{{ row.LapTime }}</td>
+            <td>
+              <a href="{% url 'lap-detail' row.LapNumber %}" class="btn btn-primary btn-sm">View Telemetry</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{% url 'search-race-data' %}" class="btn btn-secondary mt-3">Back to Search</a>
+  </div>
 </body>
 </html>
+

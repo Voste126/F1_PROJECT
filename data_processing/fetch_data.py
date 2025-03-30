@@ -5,7 +5,7 @@ import pandas as pd
 
 def get_race_session_data(year, event, session_type):
     """
-    Fetches the race session data using FastF1.
+    Fetches the race session data using FastF1 and converts laps to a DataFrame.
     
     Args:
         year (int): The race season year.
@@ -16,12 +16,18 @@ def get_race_session_data(year, event, session_type):
         pd.DataFrame: DataFrame containing lap data, or None if an error occurs.
     """
     try:
-        # Fetch the session (this downloads and caches data)
         session = fastf1.get_session(year, event, session_type)
-        session.load()  # Load all available data
-        # Retrieve laps data as a DataFrame
+        session.load(telemetry=False)  # Disable telemetry if not needed for faster loading
+        
         laps = session.laps
-        laps_df = laps.df  # FastF1 provides a Pandas DataFrame
+        # Filter and convert only those laps that have the to_dict() method
+        laps_data = [lap.to_dict() for lap in laps if hasattr(lap, 'to_dict')]
+        
+        if not laps_data:
+            print("No lap data available after filtering.")
+            return None
+        
+        laps_df = pd.DataFrame(laps_data)
         return laps_df
     except Exception as e:
         print(f"Error fetching race data: {e}")
