@@ -1,38 +1,21 @@
 <!-- dashboard/templates/dashboard/race_data.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Race Data</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-</head>
-<body>
-  <div class="container">
-    <h1 class="mt-4">Race Data</h1>
-    <table class="table table-striped">
-      <thead>
+<h1>Race Data</h1>
+<table border="1">
+    <thead>
         <tr>
-          <th>Lap Number</th>
-          <th>Driver</th>
-          <th>Lap Time</th>
-          <th>Details</th>
+            <th>Driver</th>
+            <th>Lap Number</th>
+            <th>Lap Time</th>
         </tr>
-      </thead>
-      <tbody>
-        {% for row in race_data_rows %}
-          <tr>
-            <td>{{ row.LapNumber }}</td>
-            <td>{{ row.Driver }}</td>
-            <td>{{ row.LapTime }}</td>
-            <td>
-              <a href="{% url 'lap-detail' row.LapNumber %}" class="btn btn-primary btn-sm">View Telemetry</a>
-            </td>
-          </tr>
+    </thead>
+    <tbody>
+        {% for lap in lap_data %}
+        <tr>
+            <td>{{ lap.Driver }}</td>
+            <td>{{ lap.LapNumber }}</td>
+            <td>{{ lap.LapTime }}</td>
+        </tr>
         {% endfor %}
-      </tbody>
-    </table>
-    <a href="{% url 'search-race-data' %}" class="btn btn-secondary mt-3">Back to Search</a>
-  </div>
-</body>
-</html>
+    </tbody>
+</table>
 

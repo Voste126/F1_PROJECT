@@ -1,0 +1,19 @@
+<h1>Fantasy League Leaderboard</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th>Team Name</th>
+            <th>Total Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rank, team in leaderboard.items %}
+        <tr>
+            <td>{{ rank }}</td>
+            <td>{{ team.fantasy_team__name }}</td>
+            <td>{{ team.total_score }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

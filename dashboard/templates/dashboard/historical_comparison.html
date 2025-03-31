@@ -1,0 +1,35 @@
+<h1>Historical Comparison</h1>
+<form method="get">
+    <label for="race_ids">Select Races to Compare:</label>
+    <select name="race_ids" id="race_ids" multiple>
+        {% for race in races %}
+        <option value="{{ race.id }}">{{ race.name }} ({{ race.date }})</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Compare</button>
+</form>
+
+{% if comparison_data %}
+    <h2>Comparison Results</h2>
+    {% for data in comparison_data %}
+        <h3>{{ data.race.name }} ({{ data.race.date }})</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Driver</th>
+                    <th>Lap Number</th>
+                    <th>Lap Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data.lap_data.itertuples %}
+                <tr>
+                    <td>{{ row.driver__name }}</td>
+                    <td>{{ row.lap_number }}</td>
+                    <td>{{ row.lap_time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+{% endif %}
