@@ -49,3 +49,8 @@ class FantasyScore(models.Model):
 
     def __str__(self):
         return f"{self.fantasy_team.name} - {self.race.name}"
+
+
+class HistoricalData(models.Model):
+    hostorical_data = models.JSONField()
+    
